@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using TaskManager.Models;
 using TaskManager.Models.Data;
+using TaskManager.Models.PostData;
 using TaskManager.Models.ViewModels;
 
 namespace TaskManager.Controllers
@@ -18,7 +20,7 @@ namespace TaskManager.Controllers
 		public IActionResult Index()
 		{
 			List<TestTaskViewModel> taskViewModels = new List<TestTaskViewModel>();
-			foreach (var taskDb in _testTaskContext.Tasks)
+			foreach (TestTaskDb taskDb in _testTaskContext.Tasks)
 			{
 				taskViewModels.Add(new TestTaskViewModel(
 					taskDb.Id,
@@ -30,10 +32,19 @@ namespace TaskManager.Controllers
 			return View(taskViewModels);
 		}
 
-		[HttpGet]
-		public IActionResult CreateTask()
+		[HttpPost]
+		public IActionResult CreateTask(CreateTaskPostData createTaskPostData)
 		{
-			return View();
+			TestTaskDb testTaskDb = new TestTaskDb
+			{
+				Title = createTaskPostData.Title,
+				Description = createTaskPostData.Decription,
+				Status = (int)TaskStatus.New
+			};
+
+			_testTaskContext.Add(testTaskDb);
+
+			return RedirectToAction(nameof(Index));
 		}
 	}
 }
