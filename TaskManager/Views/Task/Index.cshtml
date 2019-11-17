@@ -1,0 +1,28 @@
+﻿@using TaskManager.Models.ViewModels
+@model List<TestTaskViewModel>
+
+@{
+	ViewData["Title"] = "Home Page";
+}
+
+<table class="table">
+	<thead>
+		<tr>
+			<th scope="col">#</th>
+			<th scope="col">Title</th>
+			<th scope="col">Description</th>
+			<th scope="col">Status</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (TestTaskViewModel task in Model)
+		{
+			<tr>
+				<th scope="row">@task.Id</th>
+				<td>@task.Title</td>
+				<td>@task.Description</td>
+				<td>@task.Status</td>
+			</tr>
+		}
+	</tbody>
+</table>
