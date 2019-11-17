@@ -18,7 +18,7 @@ namespace TaskManager.Controllers
 		}
 
 		[HttpGet]
-		public IActionResult Index()
+		public IActionResult Index(string message)
 		{
 			List<TestTaskViewModel> taskViewModels = new List<TestTaskViewModel>();
 			foreach (TestTaskDb taskDb in _testTaskContext.Tasks)
@@ -30,6 +30,7 @@ namespace TaskManager.Controllers
 					taskDb.Description));
 			}
 
+			ViewBag.Message = message;
 			return View(taskViewModels);
 		}
 
@@ -58,7 +59,7 @@ namespace TaskManager.Controllers
 			taskDb.Status = statusPostData.Status;
 			_testTaskContext.SaveChanges();
 
-			return RedirectToAction(nameof(Index));
+			return RedirectToAction(nameof(Index), new { message = $"Status of task {statusPostData.Id} updated" });
 		}
 	}
 }
