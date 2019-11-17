@@ -38,6 +38,11 @@ namespace TaskManager.Controllers
 		[ValidateAntiForgeryToken]
 		public IActionResult CreateTask(CreateTaskPostData createTaskPostData)
 		{
+			if (!ModelState.IsValid)
+			{
+				return RedirectToAction(nameof(Index), new { message = "Please fill all fields to create task" });
+			}
+
 			TestTaskDb testTaskDb = new TestTaskDb
 			{
 				Title = createTaskPostData.Title,
