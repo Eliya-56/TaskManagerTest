@@ -33,6 +33,7 @@ namespace TaskManager.Controllers
 		}
 
 		[HttpPost]
+		[ValidateAntiForgeryToken]
 		public IActionResult CreateTask(CreateTaskPostData createTaskPostData)
 		{
 			TestTaskDb testTaskDb = new TestTaskDb
@@ -43,6 +44,7 @@ namespace TaskManager.Controllers
 			};
 
 			_testTaskContext.Add(testTaskDb);
+			_testTaskContext.SaveChanges();
 
 			return RedirectToAction(nameof(Index));
 		}

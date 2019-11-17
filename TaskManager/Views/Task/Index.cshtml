@@ -1,4 +1,5 @@
 ﻿@using TaskManager.Models.ViewModels
+@using TaskManager.Models.PostData
 @model List<TestTaskViewModel>
 
 @{
@@ -26,3 +27,15 @@
 		}
 	</tbody>
 </table>
+
+<form asp-controller="Task" asp-action="CreateTask" method="post">
+	<div class="form-group">
+		<label for="title">Title</label>
+		<input name="@nameof(CreateTaskPostData.Title)" type="text" class="form-control" id="title" aria-describedby="titleHelp" placeholder="Enter title">
+	</div>
+	<div class="form-group">
+		<label for="description">Password</label>
+		<input name="@nameof(CreateTaskPostData.Decription)" type="text" class="form-control" id="description" placeholder="Enter description">
+	</div>
+	<button type="submit" class="btn btn-primary">Create task</button>
+</form>
