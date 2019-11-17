@@ -45,10 +45,10 @@ namespace TaskManager.Controllers
 				Status = (int)TaskStatus.New
 			};
 
-			_testTaskContext.Add(testTaskDb);
+			TestTaskDb createdTask = _testTaskContext.Add(testTaskDb).Entity;
 			_testTaskContext.SaveChanges();
 
-			return RedirectToAction(nameof(Index));
+			return RedirectToAction(nameof(Index), new { message = $"Task {createdTask.Id} created" });
 		}
 
 		[HttpPost]
