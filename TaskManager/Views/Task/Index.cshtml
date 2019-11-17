@@ -22,7 +22,9 @@
 				<th scope="row">@task.Id</th>
 				<td>@task.Title</td>
 				<td>@task.Description</td>
-				<td>@task.Status</td>
+				<td>
+					@await Html.PartialAsync("_TaskStatusPartial", task)
+				</td>
 			</tr>
 		}
 	</tbody>
@@ -41,3 +43,10 @@
 	</div>
 	<button type="submit" class="btn btn-primary">Create task</button>
 </form>
+
+
+<script>
+	function changeTaskStatus(id) {
+		document.getElementById("change-status-form-" + id).submit();
+	}
+</script>

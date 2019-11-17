@@ -1,0 +1,15 @@
+﻿@model TaskManager.Models.ViewModels.TestTaskViewModel
+
+<form id="change-status-form-@Model.Id" asp-controller="Task" asp-action="UpdateStatus" method="post">
+	<div class="form-group">
+		<input type="hidden" asp-for="Id" name="Id" />
+		<select asp-for="Status"
+				asp-items="Html.GetEnumSelectList<TaskManager.Models.TaskStatus>()"
+				name="Status"
+				onchange="changeTaskStatus(@Model.Id)"
+				class="form-control">
+		</select>
+	</div>
+</form>
+
+
